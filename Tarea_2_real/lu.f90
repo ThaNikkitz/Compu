@@ -1,26 +1,25 @@
 	program metodos_directos
 
-	integer, parameter :: np = 6, n = 6
+	integer, parameter :: np = 10, n = 10
 	integer indx(n), stat
 !	double precision a(np, np), y(np, np), b(n), d, a1(np, np), num, c(np,np)
 	real(kind=8) :: a(np, np), y(np, np), b(n), d, a1(np, np), num, c(np,np)
-	
 !	Definición Matriz A
 
-    OPEN(UNIT=10,FILE='matrix2.txt',IOSTAT=stat,ACTION='READ')
+    OPEN(UNIT=11,FILE='matrix3.txt',IOSTAT=stat,ACTION='READ')
     IF (stat /= 0) THEN
         WRITE(*,*) 'Opening Unit 10 Failed with iostat ', stat, '.'
     END IF
     
     DO i = 1,n
-        READ(10,*) (a(i,j), j = 1,n)
+        READ(11,*) (a(i,j), j = 1,n)
     END DO
-    READ(10,*) 
+    READ(11,*) 
     DO i = 1,n
-        READ(10,*) b(i)
+        READ(11,*) b(i)
     END DO
     
-    CLOSE(UNIT=10,IOSTAT=stat)
+    CLOSE(UNIT=11,IOSTAT=stat)
     IF (stat /= 0) THEN
         WRITE(*,*) 'Closing Unit 10 Failed with iostat ', stat, '.'
     END IF
@@ -31,12 +30,12 @@
 
 !	Presentación Matriz
 
-    write(*,*) 'La matriz A='
+!    write(*,*) 'La matriz A='
     do i=1,n
-    write(*,01) (a(i,j), j = 1,n)
+!    write(*,01) (a(i,j), j = 1,n)
     end do
 
-    write(*,*) 'El vector b='
+!    write(*,*) 'El vector b='
     do i=1,n
     write(*,01) b(i)
     end do
@@ -50,12 +49,16 @@
 
 	call numero_condicion(a1, y, n, np, num)
 
+	write(*,*) 'Las fuerzas que soporta cada nodo son:'
+	do i = 1, n
+	write(*,*) 'F',i , '=', b(i)
+	end do
+
+	write(*,*)
 	write(*,*)'El número de Condición de A es'
 	write(*,01) num
-	write(*,*)
 
 	end
-
 
 
 !	----------------------------------------------------------------------
@@ -242,6 +245,13 @@
 
 	integer n, np
 	double precision a(np,np), y(np,np), num, suma, d, d1
+	write(*,*)
+	write(*,*) 'La matriz invertida es:'
+	write(*,*) y
+	write(*,*)
+
+	OPEN(UNIT=8,FILE='mat_inv_p3.txt',IOSTAT=stat,ACTION='write')
+	Close(UNIT = 8)
 
 	suma = 0.0d0
 	d = 0.0d0
