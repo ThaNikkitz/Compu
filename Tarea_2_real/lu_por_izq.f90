@@ -6,7 +6,7 @@
 	real(kind=8) :: a(np, np), y(np, np), b(n), d, a1(np, np), num, c(np,np)
 !	Definición Matriz A
 
-    OPEN(UNIT=11,FILE='matrix3.txt',IOSTAT=stat,ACTION='READ')
+    OPEN(UNIT=11,FILE='viento_izq.txt',IOSTAT=stat,ACTION='READ')
     IF (stat /= 0) THEN
         WRITE(*,*) 'Opening Unit 10 Failed with iostat ', stat, '.'
     END IF
@@ -250,7 +250,7 @@
 	write(*,*) y
 	write(*,*)
 
-	OPEN(UNIT=8,FILE='mat_inv_p3.txt', ACTION='write')
+	OPEN(UNIT=8,FILE='mat_inv_p4a.txt', ACTION='write')
 		
 	do i = 1, n 
 		write(8,*) (y(i,j), j = 1,n)

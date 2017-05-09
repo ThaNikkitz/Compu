@@ -11,13 +11,13 @@
 
 
 
-0.0d0
-0.0d0
-0.0d0
-400.0d0
-1000.0d0
-200.0d0
-1000.0d0
-0.0d0
-0.0d0
-0.0d0
+0.0d0 # Fuerza AX
+0.0d0 # Fuerza AY
+0.0d0 # Fuerza BX
+400.0d0 # Fuerza BY
+-1000.0d0 # Fuerza CX
+200.0d0 # Fuerza CY
+-1000.0d0 # Fuerza DX
+0.0d0 # Fuerza DY
+0.0d0 # Fuerza EX
+0.0d0 # Fuerza EY
