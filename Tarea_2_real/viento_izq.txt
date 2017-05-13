@@ -11,9 +11,9 @@
 
 
 
-1000.0d0 # Fuerza AX
+-500.0d0 # Fuerza AX
 0.0d0 # Fuerza AY
-1000.0d0 # Fuerza BX
+-500.0d0 # Fuerza BX
 400.0d0 # Fuerza BY
 0.0d0 # Fuerza CX
 200.0d0 # Fuerza CY

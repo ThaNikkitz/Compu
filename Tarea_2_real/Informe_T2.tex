@@ -1,0 +1,148 @@
+\documentclass[12pt, notitlepage]{article}
+\usepackage[margin=1in, top=0.5in]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage{gensymb}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{pbox}
+\usepackage[makeroom]{cancel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[name={Gráfico}]{graph}
+
+\title{Título}
+
+\date{\today}
+\renewcommand\refname{Referencias}
+\renewcommand\tablename{Tabla}
+\renewcommand\figurename{Imagen}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\geometry{letterpaper}
+
+\begin{document}
+\thispagestyle{empty}
+\setlength{\unitlength}{1 cm} %Especificar unidad de trabajo
+\begin{picture}(18,4)
+\put(0,0){\includegraphics[scale=0.38]{UTFSM_logo.png}}
+\put(11.5,0){\includegraphics[scale=0.2]{mecusm.jpg}}
+\end{picture}
+\\
+\\
+\begin{center}
+{\LARGE {Universidad Técnica Federico Santa María}}\\[0.5cm]
+{\Large Departamento de Ingeniería Mecánica}\\[2cm]
+%{\Large Redes}\\[2.3cm]
+{\Huge \textbf{Tarea 2: }}\\[0.2cm]
+{\Huge \textbf{``Resolución de sistemas de ecuaciones lineales."}}\\[0.2cm]
+{\large IPM-458 - Computación Científica.}\\
+{\large Alumno: Nicolás Espinoza M.}\\[6cm]
+Profesor: Franco Perazzo M.\\
+Ayudante: Luis Fuenzalida L.\\[3cm]
+Valparaíso - Mayo 12, 2017
+\end{center}
+\newpage
+\thispagestyle{empty}
+%\tableofcontents
+\newpage
+
+\clearpage
+\setcounter{page}{1}
+
+\section{Introducción y Teoría.}
+
+
+
+\newpage
+
+\section{Preguntas no numéricas (1 y 2).}
+En general las normas, tanto vectoriales como matriciales, sirven para definir el ``tamaño" de alguno de estos dos objetos. Existen distintas normas que se pueden utilizar. A continuación se explican dos de estas propiedades, relacionándolas con el \textit{número de condición} de una matriz.
+\subsection{Norma de Frobenius.}
+La Norma de Frobenius, también conocida como Norma $l_2$, se define como la raíz de la suma de los cuadrados de los elementos de la matriz. Un ejemplo de esto se puede ver en la siguiente matriz $\text{A}_{3x3}$:
+
+\begin{equation*}
+A = 
+\begin{pmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33}
+\end{pmatrix} \\
+\end{equation*}
+\begin{equation*}
+||A||_{l_2} = \sqrt{\sum_{i=1}^3 \sum_{j=1}^3 a_{i,j}^2} \quad = \quad \sqrt{a_{1,1}^2 + a_{1,2}^2 + a_{1,3}^2 + a_{2,1}^2 + a_{2,2}^2 + a_{2,3}^2 + a_{3,1}^2 + a_{3,2}^2 + a_{3,3}^2}
+\end{equation*}
+
+El caso más fácil de entender esta norma es con un vector. En el caso 2D, la norma $l_2$ nos indica la longitud del vector representado en un plano. Ocurre lo mismo en el caso 3D, aunque ya no es tan fácil de realizar una asociación de este estilo en tres dimensiones.\\
+
+\subsection{Norma Infinito.}
+
+La Norma Infinito también permite visualizar el tamaño de una matriz, pero se trabaja de otra forma: considera sólo el máximo valor de entre las sumas de los elementos de las distintas filas. En el siguiente ejemplo, esta vez con números, se puede ver más claramente esto:
+
+\begin{equation*}
+||A||_\infty = \max\limits_{1\leq i \leq 3} \left\lbrace \sum_{j=1}^3 |a_{ij}| \right\rbrace
+\end{equation*}
+
+\begin{equation*}
+A = \begin{pmatrix}
+2 & 5 & 9 \\
+1 & 9 & 1 \\
+7 & 3 & 0
+\end{pmatrix} \quad \rightarrow \quad \max\left\lbrace (2+5+9),(1+9+1),(7+3+0)\right\rbrace = 16
+\end{equation*}
+
+\begin{equation*}
+\text{Luego, la Norma Infinito de la matriz A del ejemplo sería: } \quad ||A||_\infty = 16
+\end{equation*}
+
+Si se define $\textbf{x}$ como la solución real de un sistema $A\textbf{x} = \textbf{b}$, y $\textbf{x}'$ la solución numérica, entonces $\textbf{e}$ es el error en el método numérico, definido como $\mathbf{e} = \mathbf{x} - \mathbf{x}'$.\\
+También se define el residual \textbf{r} como $r = \mathbf{r} = A\mathbf{x} - A\mathbf{x}' = \mathbf{b} - \mathbf{b}'$. Luego, la relación de las normas con el \textit{número de condición} de una matriz se define como $cond(A) = \norm{A}\norm{A^{-1}}$, donde $\norm{A}$ es alguna norma de la matriz, por ejemplo una de las anteriormente definidas.\\
+
+El número de condición, y por ende las normas de la matriz, se utiliza para acotar el residual mediante el error. La expresión correspondiente es la siguiente:
+
+\begin{equation*}
+\frac{1}{cond(A)} \frac{\norm{\mathbf{r}}}{\norm{\mathbf{b}}} \leq \frac{\norm{\mathbf{e}}}{\norm{\mathbf{x}}} \leq cond(A)\frac{\norm{\mathbf{r}}}{\norm{\mathbf{b}}}
+\end{equation*}
+
+\newpage
+
+\section{Programas aplicados para la resolución de una armadura (3 en adelante).}
+
+
+
+\newpage
+
+\subsection{Método LU.}
+
+
+
+\newpage
+
+\subsection{Método del Pivote de Gauss.}
+
+
+
+\newpage
+
+\subsection{Métodos de Gauss-Seidel y Jacobi.}
+
+
+
+\newpage
+
+\section{Conclusiones.}
+
+
+
+\newpage
+
+\begin{thebibliography}{3}
+
+
+
+\end{thebibliography}
+
+\end{document}

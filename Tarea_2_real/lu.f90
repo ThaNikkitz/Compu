@@ -39,7 +39,7 @@
     do i=1,n
     write(*,01) b(i)
     end do
-	
+
 
 	call lu_pivoteado(a, n, np, indx, d)
 	
@@ -48,6 +48,11 @@
 	call lu_inversa(a, n, np, indx, y)
 
 	call numero_condicion(a1, y, n, np, num)
+
+!	call Gseid(a, b, n, x, imax, es, lambda)
+
+	write(*,*) 'ashdbasjbdjsab das hjda'
+	write(*,*) x
 
 	write(*,*) 'Las fuerzas que soporta cada nodo son:'
 	do i = 1, n
@@ -291,3 +296,54 @@
 	num = d * d1
 
 	end subroutine
+
+subroutine Gseid(a, b, n, x, imax, es, lambda)
+
+	implicit none
+
+	integer :: i, j, n, iter, centinela, imax
+	double precision :: a(n, n), b(n), x(n), dummy, suma, es, ea, lambda, old
+
+	es = 0.000001
+	lambda = 0.01
+	imax = 10000
+
+	Do i = 1, n
+		dummy = a(i,i)
+		Do j = 1, n
+			a(i,j) = a(i,j)/dummy
+		End Do
+		b(i) = b(i)/dummy
+	End Do
+	Do i = 1, n
+		suma = b(i)
+		Do j = 1, n
+			If (i /= j) Then
+				suma = suma - a(i,j)*x(j)
+			End If
+		End Do
+		x(i) = suma
+	End Do
+	iter = 1
+	centinela = 0
+	Do While(centinela /= 1 .and. iter < imax)
+		old = x(i)
+		centinela = 1
+		Do i = 1, n
+			suma = b(i)
+			Do j = 1,n
+				If (i /= j) Then
+					suma = suma - a(i,j)*x(j)
+				End If
+			End Do
+			x(i) = lambda*suma + (1.0d0-lambda)*old
+			If ((centinela == 1) .and. x(i) /= 0) Then 
+				ea = Abs((x(i) - old)/x(i))*100
+				If (ea > es) Then 
+					centinela = 0
+				End If
+			End If
+		End Do
+		iter = iter + 1
+	End Do
+End Subroutine
