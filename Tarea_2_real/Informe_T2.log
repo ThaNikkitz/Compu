@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.1.21)  13 MAY 2017 23:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.1.21)  14 MAY 2017 00:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -252,18 +252,18 @@ Package newfloat Info: float type `graph'=4 on input line 15.
 (./Informe_T2.aux)
 \openout1 = `Informe_T2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -302,15 +302,15 @@ LaTeX Font Info:    ... okay on input line 27.
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
-LaTeX Info: Redefining \celsius on input line 27.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 27.
+LaTeX Info: Redefining \celsius on input line 28.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 28.
 
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 27.
-Package gensymb Info: Using \Omega for \ohm on input line 27.
+LaTeX Info: Redefining \ohm on input line 28.
+Package gensymb Info: Using \Omega for \ohm on input line 28.
 
 Package gensymb Warning: Not defining \micro.
 
@@ -377,26 +377,26 @@ Package caption Info: End \AtBeginDocument code.
 <UTFSM_logo.png, id=1, 463.7325pt x 235.63031pt>
 File: UTFSM_logo.png Graphic file (type png)
  <use UTFSM_logo.png>
-Package pdftex.def Info: UTFSM_logo.png used on input line 31.
+Package pdftex.def Info: UTFSM_logo.png used on input line 32.
 (pdftex.def)             Requested size: 176.22017pt x 89.54044pt.
 
 <mecusm.jpg, id=3, 831.105pt x 369.63094pt>
 File: mecusm.jpg Graphic file (type jpg)
  <use mecusm.jpg>
-Package pdftex.def Info: mecusm.jpg used on input line 32.
+Package pdftex.def Info: mecusm.jpg used on input line 33.
 (pdftex.def)             Requested size: 166.21805pt x 73.92487pt.
 
-Overfull \hbox (60.01918pt too wide) in paragraph at lines 33--36
+Overfull \hbox (60.01918pt too wide) in paragraph at lines 34--37
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--36
+Underfull \hbox (badness 10000) in paragraph at lines 34--37
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--36
+Underfull \hbox (badness 10000) in paragraph at lines 34--37
 
  []
 
@@ -408,38 +408,38 @@ File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
 m.jpg>] [1
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 67.
+LaTeX Font Info:    Try loading font information for U+msa on input line 68.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 67.
+LaTeX Font Info:    Try loading font information for U+msb on input line 68.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 100--101
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 122--124
+Underfull \hbox (badness 10000) in paragraph at lines 155--157
 
  []
 
 [3] [4] [5] [6] [7] [8]
 
-LaTeX Warning: Empty `thebibliography' environment on input line 167.
+LaTeX Warning: Empty `thebibliography' environment on input line 200.
 
 [9] (./Informe_T2.aux) ) 
 Here is how much of TeX's memory you used:
- 5191 strings out of 494910
- 74862 string characters out of 6179836
- 149410 words of memory out of 5000000
- 8387 multiletter control sequences out of 15000+600000
+ 5192 strings out of 494910
+ 74872 string characters out of 6179836
+ 151430 words of memory out of 5000000
+ 8388 multiletter control sequences out of 15000+600000
  11676 words of font info for 43 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,7n,38p,514b,568s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,14n,38p,514b,568s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
@@ -451,7 +451,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmti12.pfb>
-Output written on Informe_T2.pdf (10 pages, 225341 bytes).
+Output written on Informe_T2.pdf (10 pages, 227352 bytes).
 PDF statistics:
  85 PDF objects out of 1000 (max. 8388607)
  58 compressed objects within 1 object stream
