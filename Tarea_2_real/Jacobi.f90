@@ -5,7 +5,7 @@ program GSeidel
 	integer, parameter :: n = 10
 	integer :: stat, i, j, iter, centinela, imax, k
 !	double precision a(np, np), y(np, np), b(n), d, a1(np, np), num, c(np,np)
-	double precision :: a(n, n), b(n), x(n), dummy, suma, es, ea, lambda, old
+	double precision :: a(n, n), b(n), x(n), dummy, suma, es, ea, lambda, old(n)
 !	Definición Matriz A
 
     OPEN(UNIT=11,FILE='mat_diag.txt',IOSTAT=stat,ACTION='READ')
@@ -54,10 +54,10 @@ subroutine Gseid(a, b, n, x, imax, es, lambda)
 	implicit none
 
 	integer :: i, j, n, iter, centinela, imax
-	double precision :: a(n, n), b(n), x(n), dummy, suma, es, ea, lambda, old
+	double precision :: a(n, n), b(n), x(n), dummy, suma, es, ea, lambda, old(n)
 
 	es = 0.0001
-	lambda = 0.001
+	lambda = 0.01
 	imax = 1000000
 
 	Do i = 1, n
@@ -80,17 +80,17 @@ subroutine Gseid(a, b, n, x, imax, es, lambda)
 	centinela = 0
 	Do While(centinela /= 1 .and. iter < imax)
 		centinela = 1
+		old = x
 		Do i = 1, n
-			old = x(i)
 			suma = b(i)
 			Do j = 1,n
 				If (i /= j) Then
-					suma = suma - a(i,j)*x(j)
+					suma = suma - a(i,j)*old(j)
 				End If
 			End Do
-			x(i) = lambda*suma + (1.0d0-lambda)*old
+			x(i) = lambda*suma + (1.0d0-lambda)*old(i)
 			If ((centinela == 1) .and. (x(i) /= 0.0d0)) Then 
-				ea = Abs((x(i) - old)/x(i))*100
+				ea = Abs((x(i) - old(i))/x(i))*100
 				If (ea > es) Then 
 					centinela = 0
 				End If
