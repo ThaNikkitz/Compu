@@ -1,4 +1,4 @@
-program GSeidel
+program Jac
 
 	implicit none
 
@@ -43,13 +43,13 @@ program GSeidel
 !write(*,01) x
 !write(*,*)
 
-	call GSeid(a, b, n, x, imax, es, lambda)
+	call Jacobi(a, b, n, x, imax, es, lambda)
 
 write(*,*) x
 
 end program
 
-subroutine Gseid(a, b, n, x, imax, es, lambda)
+subroutine Jacobi(a, b, n, x, imax, es, lambda)
 
 	implicit none
 
@@ -98,4 +98,5 @@ subroutine Gseid(a, b, n, x, imax, es, lambda)
 		End Do
 		iter = iter + 1
 	End Do
+	write(*,*) iter
 End Subroutine

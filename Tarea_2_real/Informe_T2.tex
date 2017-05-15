@@ -259,13 +259,54 @@ En algunos casos se puede percibir una diferencia entre el método del Pivote y 
 
 \subsection{Métodos de Gauss-Seidel y Jacobi.}
 
+Para el método de Gauss-Seidel, aplicado a la pregunta número 3, se obtuvieron prácticamente los mismo valores del caso anterior. Hay que hacer notar que, aunque el método se debe aplicar a matrices diagonales dominantes, en este caso eso no es posible, por lo que sólo converge para relajaciones bajo 1.\\\\
+Los resultados del sistema, para subrelajación con $\lambda = 0.01$, son los siguientes:
 
+\begin{table}[H]
+\centering
+\caption{Valores de las fuerzas según el método de Gauss-Seidel.}
+\begin{tabular}{|c|c|} \hline
+$\text{F}_{AB}$ & 548.09888002279240 \\ \hline
+$\text{F}_{BC}$ & 375.12886944524507 \\ \hline
+$\text{F}_{CD}$ & 424.87113055474845 \\ \hline
+$\text{F}_{DE}$ & -367.94919248661381 \\ \hline
+$\text{F}_{BE}$ & 17.586545075677940 \\ \hline
+$\text{F}_{CE}$ & -14.359353917260083 \\ \hline
+$\text{F}_{EA}$ & -387.56443472262060 \\ \hline
+$\text{R}_{A_X}$ & 1.3641074932076653E-012 \\ \hline
+$\text{R}_{A_Y}$ & 387.56443472262265 \\ \hline
+$\text{R}_{D_Y}$ & 212.43556527737462 \\ \hline
+\end{tabular}
+\end{table}
+
+Con sobre-relajación (entre 1 y 2), el código entrega sólo NaN, porque el método diverge a causa de la diagonal. El número de iteraciones que se necesitó para cumplir con los requisitos de error es 11578.\\\\
+En el caso del método de Jacobi, se tiene el siguiente vector de soluciones para el sistema:
+
+\begin{table}[H]
+\centering
+\caption{Valores de las fuerzas según el método de Jacobi.}
+\begin{tabular}{|c|c|} \hline
+$\text{F}_{AB}$ & 548.09888002323316 \\ \hline
+$\text{F}_{BC}$ & 375.12886944577542 \\ \hline
+$\text{F}_{CD}$ & 424.87113055516045 \\ \hline
+$\text{F}_{DE}$ & -367.94919248658721 \\ \hline
+$\text{F}_{BE}$ & 17.586545075359265 \\ \hline
+$\text{F}_{CE}$ & -14.359353917243100 \\ \hline
+$\text{F}_{EA}$ & -387.56443472178842 \\ \hline
+$\text{R}_{A_X}$ & 1.1517669589924454E-009 \\ \hline
+$\text{R}_{A_Y}$ & 387.56443472284178 \\ \hline
+$\text{R}_{D_Y}$ & 212.43556527735947 \\ \hline
+\end{tabular}
+\end{table}
+
+El número de iteraciones que se necesitó para lograr cumplir con el criterio de error es 8904.\\\\
+Se nota que es menor que en el caso de Gauss-Seidel, pero también se puede apreciar que el valor que debería ser cero, $R_{A_X}$, aumentó su valor. Es decir, el método de Jacobi, considerando la diferencia en el número de iteraciones, es menos preciso que el de Gauss-Seidel y ambos son menos precisos que los métodos anteriores.
 
 \newpage
 
 \section{Conclusiones.}
 
-
+Gauss-Seidel y Jacobi son métodos de resolución por aproximación numérica, por lo que las soluciones son sólo aproximaciones de las soluciones analíticas. Los otros métodos son de resolución directa que, hasta donde alcance la precisión del procesador para trabajar con la data, son soluciones exactas. Es decir, en los casos en los que sea posible, es preferible trabajar con métodos como, por ejemplo, LU. sin embargo, computacionalmente estos métodos pueden resultar muy costosos, por lo que en la mayoría de los casos, las aproximaciones son preferibles.
 
 \newpage
 
