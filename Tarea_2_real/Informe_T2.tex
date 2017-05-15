@@ -164,20 +164,96 @@ El número de condición, y por ende las normas de la matriz, se utiliza para ac
 \newpage
 
 \section{Programas aplicados para la resolución de una armadura (3 en adelante).}
-
-
+Los métodos numéricos se pueden utilizar para resolver sistemas de ecuaciones o ecuaciones sin solución analítica de forma comparativamente rápida (en contraste, por ejemplo, con hacerlo ``a mano"), aunque el resultado sólo es aproximado. En la presente sección se utilizarán cuatro formas de resolución distintas para resolver un sistema físico que consiste en una armadura con 5 nodos, sometida a cargas externas, como se ve en la Figura 1. Se explicarán brevementes los métodos a utilizar y se presentarán los resultados correspondientes.
 
 \newpage
 
 \subsection{Método LU.}
+El método de Descomposición $LU$, que es el que se utilizó en la sección 2.1, consiste en dividir la matriz de factores $A$ en dos matrices, $L$ una matriz triangular inferior, y $U$ triangular superior que, multiplicadas, den como producto $A$. La idea de hacer esto es resolver dos sistemas más simples en vez del original, que en la mayoría de los casos resulta más complejo. Los sistemas a resolver son:
 
+\begin{equation}
+LU\mathbf{x} = \mathbf{b} \quad \longrightarrow \quad \begin{matrix} U\mathbf{x}=\mathbf{y} \\
+L \mathbf{y} = \mathbf{b}
+\end{matrix}
+\end{equation}
 
+Por el método $LU$ se obtienen los siguientes resultados para el valor de las fuerzas de cada barra, así como el valor de las reacciones en el pivote y en el apoyo de la matriz.
+
+\begin{table}[H]
+\centering
+\caption{Resultados con el método de Descomposición $LU$.}
+\begin{tabular}{|c|c|} \hline
+$\text{F}_{AB}$ & 548,09888002279502\\ \hline $\text{F}_{BC}$ & 375,12886944524757 \\ \hline $\text{F}_{CD}$ & 424.87113055475254 \\ \hline $\text{F}_{DE}$ & -367,94919248661631 \\ \hline $\text{F}_{BE}$ & 17,586545075681059 \\ \hline $\text{F}_{CE}$ & -14.359353917262496 \\ \hline $\text{F}_{EA}$ & -387.56443472262379  \\ \hline $\text{R}_{A_X}$ & 0.0000000000000000  \\ \hline $\text{R}_{A_Y}$ & 387.56443472262379 \\ \hline $\text{R}_{D_Y}$ & 212,43556527737621\\ \hline
+\end{tabular}
+\end{table}
+
+El algoritmo computacional lo que hace es recibir como input una matriz $A$ y un vector solución $b$. El método incluye el procedimiento de eliminación Gaussiana, para reducir las matrices $L$ y $U$ a triangulares. Finalmente, el sistema se resuelve a través de la resolución de los sistemas planteados en (3).\\\\
+La matriz $A^{-1}$ resultante con el método de descomposición $LU$ es la siguiente:
+
+\begin{equation*}
+\begin{pmatrix}
+0.000 & 0.000 & 0.328 & 1.086 & 0.328 & 0.568 & 0.000 & 0.000 & 0.000 & 0.758 \\
+0.000 & 0.000 & -0.536 & 0.536 & 0.464 & 0.804 & 0.000 & 0.000 & 0.000 & 1.072 \\
+0.000 & 0.000 & -0.464 & 0.464 & -0.464 & 1.196 & 0.000 & 0.000 & 0.000 & 0.928 \\
+0.000 & 0.000 & 0.402 & -0.402 & 0.402 & -1.036 & 1.000 & 0.000 & 0.000 & -0.804 \\
+0.000 & 0.000 & -0.328 & 0.328 & -0.328 & -0.568 & 0.000 & 0.000 & 0.000 & -0.758\\
+0.000 & 0.000 & 0.268 & -0.268 & 0.268 & 0.464 & 0.000 & 0.000 & 0.000 & -0.536 \\
+0.000 & 0.000 & 0.768 & -0.768 & 0.768 & -0.402 & 1.000 & 0.000 & 1.000 & -0.536 \\
+1.000 & 0.000 & 1.000 & 0.000 & 1.000 & 0.000 & 1.000 & 0.000 & 1.000 & 0.000     \\
+0.000 & 1.000 & 0.232 & 0.768 & 0.232 & 0.402 & 0.000 & 0.000 & 0.000 & 0.536 \\
+0.000 & 0.000 & -0.232 & 0.232 & -0.232 & 0.598 & 0.000 & 1.000 & 0.000 & 0.464
+\end{pmatrix}
+\end{equation*}
+
+El número de condición correspondiente al problema actual es 16.8, aproximadamente.\\\\
+
+Considerando ahora que la armadura resiste viento en dirección positiva del eje X, se modifica el vector \textbf{b} con los valores correspondientes. Si el viento empuja con una fuerza de 1000 [N], entonces los nodos a la izquierda reciben una fuerza de 500 [N] cada uno. El vector solución es:
+
+\begin{table}[H]
+\centering
+\caption{Vector solución con viento por la izquierda, en sentido X+.}
+\begin{tabular}{|c|c|} \hline
+$\text{F}_{AB}$ & 384.01418037868234 \\ \hline $\text{F}_{BC}$ & 643.07806189184680 \\ \hline $\text{F}_{CD}$ & 656.92193810815320 \\ \hline $\text{F}_{DE}$ & -568.91108684657638 \\ \hline $\text{F}_{BE}$ & 181.67124471979366 \\ \hline $\text{F}_{CE}$ & -148.33395009054092 \\ \hline $\text{F}_{EA}$ & -771.53903094592340  \\ \hline $\text{R}_{A_X}$ & -1000.0000000000000   \\ \hline $\text{R}_{A_Y}$ &  271.53903094592340 \\ \hline $\text{R}_{D_Y}$ & 328.46096905407660 \\ \hline
+\end{tabular}
+\end{table}
+
+Para el caso con viento desde la derecha hacia la izquierda (X-), el vector solución es el siguiente:
+
+\begin{table}[H]
+\centering
+\caption{Vector solución con viento por la derecha, en sentido X-.}
+\begin{tabular}{|c|c|} \hline
+$\text{F}_{AB}$ & 712.18357966690758 \\ \hline $\text{F}_{BC}$ & 607.17967699864823  \\ \hline $\text{F}_{CD}$ & 192.82032300135180 \\ \hline $\text{F}_{DE}$ & 333.01270187334381 \\ \hline $\text{F}_{BE}$ & -146.49815456843157 \\ \hline $\text{F}_{CE}$ & 119.61524225601596  \\ \hline $\text{F}_{EA}$ & 496.41016150067588 \\ \hline $\text{R}_{A_X}$ & 1000.0000000000000    \\ \hline $\text{R}_{A_Y}$ &  503.58983849932406 \\ \hline $\text{R}_{D_Y}$ & 96.410161500675912 \\ \hline
+\end{tabular}
+\end{table}
+
+El caso más desfavorable, como se puede ver por los valores de las fuerzas que actúan sobre las barras, sería en el caso con viento \textbf{hacia} la derecha, pues en la que se encuantra la fuerza de mayor valor, correspondiente a -771.54 [N] sobre la barra EA.
 
 \newpage
 
 \subsection{Método del Pivote de Gauss.}
 
+El Pivote de Gauss, también llamado eliminación Gaussiana, reduce la matriz original a una triangular, de modo de poder resolver el sistema a partir de la resolución de un nuevo sistema más simple, pues la matriz triangular entrega los valores del vector de incognitas en orden. Por ejemplo, si el Pivote de Gauss entrega una diagonal superior, se empieza a resolver desde la ecuación correspondiente a la última fila de la matriz, y así se obtiene inmediatamente una incognita, que después se utiliza en la penúltima ecuación, obteniéndose otro componente del vector solución. Esto se repite hasta llegar a la primera fila.\\
+Los resultados de aplicar el Pivote de Gauss al problema número 3 son las fuerzas siguientes:
 
+\begin{table}[H]
+\centering
+\caption{Valores de las fuerzas según el método del Pivote de Gauss.}
+\begin{tabular}{|c|c|} \hline
+$\text{F}_{AB}$ & 548.09888002279502 \\ \hline
+$\text{F}_{BC}$ & 375.12886944524752 \\ \hline
+$\text{F}_{CD}$ & 424.87113055475254 \\ \hline
+$\text{F}_{DE}$ & -367.94919248661631 \\ \hline
+$\text{F}_{BE}$ & 17.586545075681052 \\ \hline
+$\text{F}_{CE}$ & -14.359353917262490 \\ \hline
+$\text{F}_{EA}$ & -387.56443472262379 \\ \hline
+$\text{R}_{A_X}$ & 0.0000000000000000 \\ \hline
+$\text{R}_{A_Y}$ & 387.56443472262379 \\ \hline
+$\text{R}_{D_Y}$ & 212.43556527737624 \\ \hline
+\end{tabular}
+\end{table}
+
+En algunos casos se puede percibir una diferencia entre el método del Pivote y la Descomposición $LU$, pero esto śólo ocurre en el último decimal, si es que ocurre siquiera. El método de Pivote de Gauss es importante, pues es la base del método de Descomposición LU. Se debe recordar que hay que invertir la matriz que surge por realizar el pivoteo para poder despejar el vector de incógnitas.
 
 \newpage
 

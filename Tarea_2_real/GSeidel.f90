@@ -57,7 +57,7 @@ subroutine Gseid(a, b, n, x, imax, es, lambda)
 	double precision :: a(n, n), b(n), x(n), dummy, suma, es, ea, lambda, old
 
 	es = 0.0001
-	lambda = 0.001
+	lambda = 0.01
 	imax = 1000000
 
 	Do i = 1, n
@@ -98,4 +98,5 @@ subroutine Gseid(a, b, n, x, imax, es, lambda)
 		End Do
 		iter = iter + 1
 	End Do
+	write(*,*) iter
 End Subroutine
