@@ -1,0 +1,66 @@
+\documentclass[12pt, notitlepage]{article}
+\usepackage[margin=1in, top=0.5in]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage{gensymb}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{pbox}
+\usepackage[makeroom]{cancel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[name={Gráfico}]{graph}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\title{Título}
+
+\date{\today}
+\renewcommand\refname{Referencias}
+\renewcommand\tablename{Tabla}
+\renewcommand\figurename{Figura}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\geometry{letterpaper}
+
+\begin{document}
+\thispagestyle{empty}
+\setlength{\unitlength}{1 cm} %Especificar unidad de trabajo
+\begin{picture}(18,4)
+\put(0,0){\includegraphics[scale=0.38]{UTFSM_logo.png}}
+\put(11.5,0){\includegraphics[scale=0.2]{mecusm.jpg}}
+\end{picture}
+\\
+\\
+\begin{center}
+{\LARGE {Universidad Técnica Federico Santa María}}\\[0.5cm]
+{\Large Departamento de Ingeniería Mecánica}\\[2cm]
+%{\Large Redes}\\[2.3cm]
+{\Huge \textbf{Tarea 2: }}\\[0.2cm]
+{\Huge \textbf{``Resolución de sistemas de ecuaciones lineales."}}\\[0.2cm]
+{\large IPM-458 - Computación Científica.}\\
+{\large Alumno: Nicolás Espinoza M.}\\[6cm]
+Profesor: Franco Perazzo M.\\
+Ayudante: Luis Fuenzalida L.\\[3cm]
+Valparaíso - Mayo 12, 2017
+\end{center}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introducción al Problema.}
+
+El desarrollo de este informe gira en torno a un gancho de grúa de sección variable. De la forma de la sección del gancho se conocen algunos puntos en coordenadas $X-Y$, que gracias a métodos numéricos también permitirán definir la periferia de la sección transversal.\\\\
+En el trabajo se utilizan Splines Cúbicos que permiten interpolar curvas a los puntos obtenidos en las mediciones presentadas en la tabla entregada en el problema.\\\\
+\subsection{Spline cúbico natural.}
+
+Sirve para interpolar puntos mediante un polinomio cúbico. En casos con múltiples puntos, los coeficientes del polinomio varían en cada intervalo. De manera genérica en un dominio $[a,b]$ con intervalos $[x_i,x_{i+1}]$, el polinomio es de la forma
+\begin{equation}
+S(x_i) = \alpha_i + \beta_i(x-x_i) + \gamma_i(x-x_i)^2 + \delta_i(x-x_i)^3
+\end{equation}
+
+
+
+\end{document}
