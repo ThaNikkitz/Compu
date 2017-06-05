@@ -51,9 +51,13 @@ Open(unit = 10, file = 'coeficientes.txt')
 	End Do
  Close(unit = 10)
 
-call Spline(aa, bb, cc, dd, e, x, xx, y)
-
-write(*,*) y
+Open(Unit = 1, file = 'resultados.txt')
+Do i = 1, 5*n
+	xx = (i - 1.0d0)*212.8d0/(5.0d0*n-1.0d0)
+	call Spline(aa, bb, cc, dd, e, x, xx, y)
+	write(1,*) y
+End Do
+ Close(Unit = 1)
 
 end program
 
@@ -67,8 +71,8 @@ integer :: i, j
 integer, parameter :: n = 22
 double precision :: e(n,4), aa, bb, cc, dd, x(n), xx, y
 
-write(*,*) 'Ingrese el valor al que quiere aproximarle una solución'
-read(*,*) xx
+!write(*,*) 'Ingrese el valor al que quiere aproximarle una solución'
+!read(*,*) xx
 
 Open(Unit = 11, file = 'coeficientes.txt')
 Do i = 1,n	
@@ -78,14 +82,22 @@ End Do
 Open(Unit = 3, file = 'matrix1.txt')
 Do j = 1, n-1
 	read(3,*) x(j)
-	If(xx <= x(j+1) .and. xx >= x(j)) then
+	If(xx < x(j+1) .and. xx >= x(j)) then
 		aa = e(j,1)
 		bb = e(j,2)
 		cc = e(j,3)
 		dd = e(j,4)
-		y = aa + bb*(xx-x(j)) + cc*(xx - x(j))**2 + dd*(xx - x(j))**3
+		y = aa + bb*(xx - x(j)) + cc*(xx - x(j))**2 + dd*(xx - x(j))**3
+	Else If (xx == x(n)) then
+		aa = e(n,1)
+		bb = e(n,2)
+		cc = e(n,3)
+		dd = e(n,4)
+		y = aa + bb*(xx - x(j)) + cc*(xx - x(j))**2 + dd*(xx - x(j))**3
 	End If
+	write(*,*) xx, x(n)
 End Do
+
  Close(Unit = 3)
  Close(Unit = 11)
 
