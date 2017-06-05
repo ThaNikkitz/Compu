@@ -51,13 +51,15 @@ Open(unit = 10, file = 'coeficientes.txt')
 	End Do
  Close(unit = 10)
 
-Open(Unit = 1, file = 'resultados.txt')
-Do i = 1, 5*n
-	xx = (i - 1.0d0)*212.8d0/(5.0d0*n-1.0d0)
+!Open(Unit = 1, file = 'resultados.txt')
+!Do i = 1, 5*n
+!	xx = (i - 1.0d0)*212.8d0/(5.0d0*n-1.0d0)
 	call Spline(aa, bb, cc, dd, e, x, xx, y)
 	write(1,*) y
-End Do
- Close(Unit = 1)
+!End Do
+! Close(Unit = 1)
+
+write(*,*) y
 
 end program
 
@@ -71,8 +73,8 @@ integer :: i, j
 integer, parameter :: n = 22
 double precision :: e(n,4), aa, bb, cc, dd, x(n), xx, y
 
-!write(*,*) 'Ingrese el valor al que quiere aproximarle una solución'
-!read(*,*) xx
+write(*,*) 'Ingrese el valor al que quiere aproximarle una solución'
+read(*,*) xx
 
 Open(Unit = 11, file = 'coeficientes.txt')
 Do i = 1,n	
@@ -95,7 +97,7 @@ Do j = 1, n-1
 		dd = e(n,4)
 		y = aa + bb*(xx - x(j)) + cc*(xx - x(j))**2 + dd*(xx - x(j))**3
 	End If
-	write(*,*) xx, x(n)
+!	write(*,*) xx, x(n)
 End Do
 
  Close(Unit = 3)
