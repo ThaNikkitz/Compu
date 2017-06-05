@@ -57,7 +57,7 @@ end program
 
 !----------------------------------------------------------------------------------
 
-Subroutine Spline(a, b, c, d, e, xx, y)
+Subroutine Spline(a, b, c, d, e, x, xx, y)
 
 integer :: i, j
 integer, parameter :: n = 22
@@ -73,8 +73,12 @@ End Do
  Close(unit = 11)
 
 Do i = 1, n
-	a(i) = e(i,1)
-	b(i) = e(i,2)
-	c(i) = e(i,3)
-	d(i) = e(i,j)
+	If(xx <= x(i+1) .and. xx >= x(i))
+		a = e(i,1)
+		b = e(i,2)
+		c = e(i,3)
+		d = e(i,j)
+		write(*,*) a + b*(xx-x(i)) + c*(xx - x(i))**2 + d*(xx - x(i))**3
+	End If
 End Do
+
