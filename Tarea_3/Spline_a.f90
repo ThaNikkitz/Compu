@@ -4,7 +4,7 @@ implicit none
 
 integer :: i, j
 integer, parameter :: n = 22
-double precision :: blah(n,2), x(n), a(n), b(n), c(n), d(n), h(n), alfa(n), mu(n), l(n), z(n)
+double precision :: blah(n,2), x(n), a(n), b(n), c(n), d(n), e(n,4), h(n), alfa(n), mu(n), l(n), z(n), y, xx, aa, bb, cc, dd
 
 Open(unit = 2, file = 'matrix1.txt')
 Do i = 1,n
@@ -51,7 +51,7 @@ Open(unit = 10, file = 'coeficientes.txt')
 	End Do
  Close(unit = 10)
 
-call Spline(a, b, c, d, e, x, xx, y)
+call Spline(aa, bb, cc, dd, e, x, xx, y)
 
 write(*,*) y
 
@@ -59,34 +59,34 @@ end program
 
 !----------------------------------------------------------------------------------
 
-Subroutine Spline(a, b, c, d, e, x, xx, y)
+Subroutine Spline(aa, bb, cc, dd, e, x, xx, y)
 
 implicit none
 
 integer :: i, j
 integer, parameter :: n = 22
-double precision :: e(n,4), a, b, c, d, x(n), xx, y
+double precision :: e(n,4), aa, bb, cc, dd, x(n), xx, y
 
 write(*,*) 'Ingrese el valor al que quiere aproximarle una solución'
 read(*,*) xx
 
-Open(unit = 11, file = 'coeficientes.txt')
+Open(Unit = 11, file = 'coeficientes.txt')
 Do i = 1,n	
-	read(10,*) (e(i,j), j = 1,4)
+	read(11,*) (e(i,j), j = 1,4)
 End Do 
 
-Open(unit = 3, file = 'matrix1.txt')
+Open(Unit = 3, file = 'matrix1.txt')
 Do j = 1, n-1
 	read(3,*) x(j)
 	If(xx <= x(j+1) .and. xx >= x(j)) then
-		a = e(j,1)
-		b = e(j,2)
-		c = e(j,3)
-		d = e(j,j)
-		y = a + b*(xx-x(j)) + c*(xx - x(j))**2 + d*(xx - x(j))**3
+		aa = e(j,1)
+		bb = e(j,2)
+		cc = e(j,3)
+		dd = e(j,4)
+		y = aa + bb*(xx-x(j)) + cc*(xx - x(j))**2 + dd*(xx - x(j))**3
 	End If
 End Do
  Close(Unit = 3)
- Close(unit = 11)
+ Close(Unit = 11)
 
 End Subroutine
