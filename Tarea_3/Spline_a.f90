@@ -17,8 +17,6 @@ Do j = 1,n
 End Do
 
  Close(unit = 2)
-write(*,*) x
-write(*,*) a
 
 Do i = 1,n-1
 	h(i) = x(i+1) - x(i)
@@ -53,15 +51,21 @@ Open(unit = 10, file = 'coeficientes.txt')
 	End Do
  Close(unit = 10)
 
+call Spline(a, b, c, d, e, x, xx, y)
+
+write(*,*) y
+
 end program
 
 !----------------------------------------------------------------------------------
 
 Subroutine Spline(a, b, c, d, e, x, xx, y)
 
+implicit none
+
 integer :: i, j
 integer, parameter :: n = 22
-double precision :: e(n,4), a, b, c, d, xx, y
+double precision :: e(n,4), a, b, c, d, x(n), xx, y
 
 write(*,*) 'Ingrese el valor al que quiere aproximarle una solución'
 read(*,*) xx
@@ -70,15 +74,19 @@ Open(unit = 11, file = 'coeficientes.txt')
 Do i = 1,n	
 	read(10,*) (e(i,j), j = 1,4)
 End Do 
- Close(unit = 11)
 
-Do i = 1, n
-	If(xx <= x(i+1) .and. xx >= x(i))
-		a = e(i,1)
-		b = e(i,2)
-		c = e(i,3)
-		d = e(i,j)
-		write(*,*) a + b*(xx-x(i)) + c*(xx - x(i))**2 + d*(xx - x(i))**3
+Open(unit = 3, file = 'matrix1.txt')
+Do j = 1, n-1
+	read(3,*) x(j)
+	If(xx <= x(j+1) .and. xx >= x(j)) then
+		a = e(j,1)
+		b = e(j,2)
+		c = e(j,3)
+		d = e(j,j)
+		y = a + b*(xx-x(j)) + c*(xx - x(j))**2 + d*(xx - x(j))**3
 	End If
 End Do
+ Close(Unit = 3)
+ Close(unit = 11)
 
+End Subroutine
