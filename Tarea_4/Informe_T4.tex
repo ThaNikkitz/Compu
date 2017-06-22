@@ -1,0 +1,56 @@
+\documentclass[12pt, notitlepage]{article}
+\usepackage[margin=1in, top=0.5in]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage{gensymb}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{pbox}
+\usepackage[makeroom]{cancel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[name={Gráfico}]{graph}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\title{Título}
+
+\date{\today}
+\renewcommand\refname{Referencias}
+\renewcommand\tablename{Tabla}
+\renewcommand\figurename{Figura}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\geometry{letterpaper}
+
+\begin{document}
+\thispagestyle{empty}
+\setlength{\unitlength}{1 cm} %Especificar unidad de trabajo
+\begin{picture}(18,4)
+\put(0,0){\includegraphics[scale=0.38]{UTFSM_logo.png}}
+\put(11.5,0){\includegraphics[scale=0.2]{mecusm.jpg}}
+\end{picture}
+\\
+\\
+\begin{center}
+{\LARGE {Universidad Técnica Federico Santa María}}\\[0.5cm]
+{\Large Departamento de Ingeniería Mecánica}\\[2cm]
+%{\Large Redes}\\[2.3cm]
+{\Huge \textbf{Tarea 4:}}\\[0.2cm]
+{\Huge \textbf{``Método de Runge-Kutta aplicado a una E.D.O. de 2\degree orden."}}\\[0.2cm]
+{\large IPM-458 - Computación Científica.}\\[3cm]
+{\large Alumno: Nicolás Espinoza M.}\\[3cm]
+Profesor: Franco Perazzo M.\\
+Ayudante: Luis Fuenzalida L.\\[3cm]
+Valparaíso - Junio 23, 2017
+\end{center}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introducción al Problema.}
+En ingeniería y ciencias se utilizan innumerables ecuaciones que modelan el mundo real, y los acontecimientos que allí ocurren, para poder entenderlos y ser capaces de desenvolverse mejor. Sin embargo, encontrar una solución analítica para dichas ecuaciones no siempre resulta posible, debido a la gran complejidad que presentan. En estos casos se emplean métodos de resolución numérica que aproximan las soluciones con un cierto grado de error. En este informe se revisa el caso de una interfaz de fluido, en particular una burbuja. La ecuación a 
+
+\end{document}
