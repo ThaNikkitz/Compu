@@ -1,2 +1,6 @@
 \contentsline {section}{\numberline {1}Presentaci\IeC {\'o}n del problema}{3}
 \contentsline {section}{\numberline {2}Establecimiento de las ecuaciones para los distintos tipos de nodo}{3}
+\contentsline {subsection}{\numberline {2.1}Nodos del borde izquierdo}{3}
+\contentsline {subsection}{\numberline {2.2}Nodos del borde inferior}{4}
+\contentsline {subsection}{\numberline {2.3}Esquina inferior izquierda}{4}
+\contentsline {subsection}{\numberline {2.4}Nodos del borde superior}{4}

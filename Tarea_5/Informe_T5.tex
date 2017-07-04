@@ -18,6 +18,7 @@
 \title{Título}
 
 \date{\today}
+\renewcommand{\contentsname}{Contenidos}
 \renewcommand\refname{Referencias}
 \renewcommand\tablename{Tabla}
 \renewcommand\figurename{Figura}
@@ -59,7 +60,19 @@ El presente informe desarrolla el método de diferencias finitas, en particular 
 
 Los valores de estas condiciones se pueden ver en la Figura 1. Se consideran dos dimensiones (ejes $x$ e $y$), con un mismo número $n$ de nodos en ambas direcciones. La ecuación que rige el problema planteado, transferencia de calor en dos dimensiones en estado estacionario, es
 \begin{equation}
-\frac{\partial^2T(\vec{x})}{\partial x^2} + \frac{\partial^2T(\vec{x})}{\partial y^2}
+\frac{\partial^2T(\vec{x})}{\partial x^2} + \frac{\partial^2T(\vec{x})}{\partial y^2} = 0
+\end{equation}
+
+Discretizando con diferencias finitas centradas (2\degree orden), obtenemos la aproximación siguiente:
+
+\begin{equation}
+\frac{\partial^2T(\vec{x})}{\partial x^2} + \frac{\partial^2T(\vec{x})}{\partial y^2} \approx \frac{T_{i+1,j} - 2T_{i,j} + T_{i-1,j}}{(\Delta x)^2} + \frac{T_{i,j+1} - 2T_{i,j} + T_{i,j-1}}{(\Delta y)^2} = 0
+\end{equation}
+
+Esta ecuación es la que se utilizará para aproximar las soluciones del sistema, a modo de trabajar con resultados numéricos y poder programar la situación en el computador. Como los pasos en ambas direcciones tienen el mismo tamaño, se puede trabajar con la ecuación simplificada siguiente, en remplazo de la Ecuación 2:
+
+\begin{equation}
+T_{i+1,j} + T_{i-1,j} - 4T_{i,j} + T_{i,j+1} + T_{i,j-1} = 0
 \end{equation}
 
 %\begin{figure}
@@ -69,6 +82,47 @@ Los valores de estas condiciones se pueden ver en la Figura 1. Se consideran dos
 %\end{figure}
 
 \section{Establecimiento de las ecuaciones para los distintos tipos de nodo}
-En esta placa se tienen distintos tipos de condiciones, por lo que se tienen distintas ecuaciones para los diferentes tipos de nodo. En esta sección se estableceran dichas ecuaciones según dónde se ubican los nodos a tratar.
+En esta placa se tienen distintos tipos de condiciones, por lo que se tienen distintas ecuaciones para los diferentes tipos de nodo. En esta sección se establecerán dichas ecuaciones según dónde se ubican los nodos a tratar.
+
+\subsection{Nodos del borde izquierdo}
+Para estos nodos, la condición que se cumple es la de Neumann. Las paredes están aisladas, por lo que la condición queda igualada a cero.
+
+\begin{gather*}
+-k\left.\frac{\partial T}{\partial x}\right|_{x = 0} = \dot{q} = 0 \\
+\frac{T_{i+1,j} - T_{i-1,j}}{2\Delta x} = 0 \rightarrow T_{i+1,j} = T_{i-1,j}\\
+2T_{i+1,j} - 4T_{i,j} + T_{i,j+1} + T_{i,j-1} = 0
+\end{gather*}
+
+La Ecuación 3 es la que modela la transferencia con diferencias finitas, habiendo remplazado la condición de Neumann correspondiente.
+
+\subsection{Nodos del borde inferior}
+Se cumple la misma condición en los nodos inferiores, pero la diferencia es que se considera la coordenada $y$ en vez de la $x$. Luego, las condiciones de contorno y la ecuación para este tipo de nodos es:
+
+\begin{gather*}
+-k\left.\frac{\partial T}{\partial y}\right|_{y = 0} = \dot{q} = 0 \\
+\frac{T_{i,j+1} - T_{i,j-1}}{2\Delta y} = 0 \rightarrow T_{i,j+1} = T_{i,j-1}\\
+T_{i+1,j} + T_{i-1,j} - 4T_{i,j} + 2T_{i,j+1} = 0
+\end{gather*}
+
+\subsection{Esquina inferior izquierda}
+El nodo de la esquina inferior izquierda está aislado por abajo y por la izquierda, por lo que se aplican las dos condiciones anteriores simultáneamente:
+
+\begin{equation*}
+2T_{i+1,j} - 4T_{i,j} + 2T_{i,j+1} = 0
+\end{equation*}
+
+\subsection{Nodos del borde superior}
+Los nodos en este borde tienen una temperatura dada, lo que corresponde a una condición de tipo Dirichlet. La ecuación en este caso queda como
+
+\begin{gather*}
+T_{i,j} = T_{borde}\\
+\text{En este caso, corresponde a}\ T_{i,j} = 100\degree C
+\end{gather*}
+
+Para los nodos inmediatamente inferiores a estos sin embargo, nos sirve esta condición, pues se despeja la temperatura conocida $T_{i,j+1} = 100$ como solución de la ecuación, quedando para los nodos $j=n-1$:
+
+\begin{equation*}
+-4T_{i,j} + T_{i+1,j} + T_{i-1,j} + T_{i,j_1} = -100
+\end{equation*}
 
 \end{document}
