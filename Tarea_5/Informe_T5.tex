@@ -1,0 +1,74 @@
+\documentclass[12pt, notitlepage]{article}
+\usepackage[margin=1in, top=0.5in]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage{gensymb}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{pbox}
+\usepackage[makeroom]{cancel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[name={Gráfico}]{graph}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\title{Título}
+
+\date{\today}
+\renewcommand\refname{Referencias}
+\renewcommand\tablename{Tabla}
+\renewcommand\figurename{Figura}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\geometry{letterpaper}
+
+\begin{document}
+\thispagestyle{empty}
+\setlength{\unitlength}{1 cm} %Especificar unidad de trabajo
+\begin{picture}(18,4)
+\put(0,0){\includegraphics[scale=0.38]{UTFSM_logo.png}}
+\put(11.5,0){\includegraphics[scale=0.2]{mecusm.jpg}}
+\end{picture}
+\\
+\\
+\begin{center}
+{\LARGE {Universidad Técnica Federico Santa María}}\\[0.5cm]
+{\Large Departamento de Ingeniería Mecánica}\\[2cm]
+%{\Large Redes}\\[2.3cm]
+{\Huge \textbf{Tarea 5:}}\\[0.2cm]
+{\Huge \textbf{``Método de diferencias finitas aplicado a transferencia de calor en una placa"}}\\[0.2cm]
+{\large IPM-458 - Computación Científica.}\\[3cm]
+{\large Alumno: Nicolás Espinoza M.}\\[3cm]
+Profesor: Franco Perazzo M.\\
+Ayudante: Luis Fuenzalida L.\\[3cm]
+Valparaíso - Julio 05, 2017
+\end{center}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Presentación del problema}
+El presente informe desarrolla el método de diferencias finitas, en particular de segundo orden, aplicado a la transferencia de calor en una placa cuadrada. La placa tiene dos tipos de condiciones:
+\begin{itemize}
+\item{Dirichlet en los bordes superior y derecho.}
+\item{Neumann en los bordes inferior e izquierdo.}
+\end{itemize}
+
+Los valores de estas condiciones se pueden ver en la Figura 1. Se consideran dos dimensiones (ejes $x$ e $y$), con un mismo número $n$ de nodos en ambas direcciones. La ecuación que rige el problema planteado, transferencia de calor en dos dimensiones en estado estacionario, es
+\begin{equation}
+\frac{\partial^2T(\vec{x})}{\partial x^2} + \frac{\partial^2T(\vec{x})}{\partial y^2}
+\end{equation}
+
+%\begin{figure}
+%\centering
+%\includegraphics[scale=•]{•}
+%\caption{Discretización de la placa mediante el método de diferencias finitas de segundo orden.}
+%\end{figure}
+
+\section{Establecimiento de las ecuaciones para los distintos tipos de nodo}
+En esta placa se tienen distintos tipos de condiciones, por lo que se tienen distintas ecuaciones para los diferentes tipos de nodo. En esta sección se estableceran dichas ecuaciones según dónde se ubican los nodos a tratar.
+
+\end{document}
