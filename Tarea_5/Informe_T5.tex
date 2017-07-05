@@ -93,14 +93,14 @@ Para estos nodos, la condición que se cumple es la de Neumann. Las paredes est�
 2T_{i+1,j} - 4T_{i,j} + T_{i,j+1} + T_{i,j-1} = 0
 \end{gather*}
 
-La Ecuación 3 es la que modela la transferencia con diferencias finitas, habiendo remplazado la condición de Neumann correspondiente.
+La $3^a$ ecuación es la que modela la transferencia con diferencias finitas, habiendo remplazado la condición de Neumann correspondiente.
 
 \subsection{Nodos del borde inferior}
 Se cumple la misma condición en los nodos inferiores, pero la diferencia es que se considera la coordenada $y$ en vez de la $x$. Luego, las condiciones de contorno y la ecuación para este tipo de nodos es:
 
 \begin{gather*}
 -k\left.\frac{\partial T}{\partial y}\right|_{y = 0} = \dot{q} = 0 \\
-\frac{T_{i,j+1} - T_{i,j-1}}{2\Delta y} = 0 \rightarrow T_{i,j+1} = T_{i,j-1}\\
+\frac{T_{i,j+1} - T_{i,j-1}}{2\Delta y} = 0 \quad \longrightarrow\quad T_{i,j+1} = T_{i,j-1}\\
 T_{i+1,j} + T_{i-1,j} - 4T_{i,j} + 2T_{i,j+1} = 0
 \end{gather*}
 
@@ -114,15 +114,39 @@ El nodo de la esquina inferior izquierda está aislado por abajo y por la izquie
 \subsection{Nodos del borde superior}
 Los nodos en este borde tienen una temperatura dada, lo que corresponde a una condición de tipo Dirichlet. La ecuación en este caso queda como
 
-\begin{gather*}
-T_{i,j} = T_{borde}\\
-\text{En este caso, corresponde a}\ T_{i,j} = 100\degree C
-\end{gather*}
+\begin{align*}
+T_{i,j} = T_{borde}&\\
+\text{En este caso, corresponde a}\ T_{i,j} &= 100\degree C
+\end{align*}
 
 Para los nodos inmediatamente inferiores a estos sin embargo, nos sirve esta condición, pues se despeja la temperatura conocida $T_{i,j+1} = 100$ como solución de la ecuación, quedando para los nodos $j=n-1$:
 
 \begin{equation*}
--4T_{i,j} + T_{i+1,j} + T_{i-1,j} + T_{i,j_1} = -100
+-4T_{i,j} + T_{i+1,j} + T_{i-1,j} + T_{i,j-1} = -100
 \end{equation*}
+
+\subsection{Nodos en el borde derecho}
+Para el borde derecho se repite la situación de los nodos en el borde superior, pero en la otra dirección y con otro valor de $T_{borde}$.
+
+\begin{gather*}
+T_{i,j} = T_{borde} \\
+T_{borde} = 50\degree C
+\end{gather*}
+
+Nuevamente, para los nodos directamente a la izquierda de los del borde, nos resulta útil esta condición, pues permite utilizar esa condición de Dirichlet como resultado de las ecuaciones que modelan a aquellos.
+
+\begin{equation*}
+-4T_{i,j} + T_{i-1,j} + T_{i,j+1} + T_{i,j-1} = -50
+\end{equation*}
+
+\subsection{Esquina superior derecha i = n-1, j = n-1}
+Esta esquina tiene dos condiciones de Dirichlet asociadas, que son las temperaturas de los bordes derecho y superior. La ecuación de este nodo queda así:
+\begin{equation}
+-4T_{i,j} + T_{i-1,j} + T_{i,j-1} = -150
+\end{equation}
+
+\subsection{Nodos interiores}
+Estos nodos, que no están en el borde sino que en el centro, tienen otro nodo como vecino en ambas direcciones en ambos ejes. La Ecuación 3 se mantiene para este tipo de nodos, sin cambio.\\\\
+El siguiente paso es establecer la matriz de factores y el vector de resultados, y programar o aplicar el método de resolución del sistema.
 
 \end{document}
