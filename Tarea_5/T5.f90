@@ -2,20 +2,30 @@ program Dif_Finitas
 implicit none
 
 integer :: i, j, n, c, k, l, m, imax
-double precision :: delta, es, lambda
-double precision, allocatable :: qx(:), qy(:), T(:), A(:,:), b(:) 
+double precision :: delta, es, lambda, kappa, posx, posy
+double precision, allocatable :: qx(:,:), qy(:,:), T(:), A(:,:), b(:), Temperaturas(:,:), Calores(:,:)
 
 write(*,*) 'Ingrese el tamaño del paso'
 read(*,*) delta
 
 n = 50/delta
+posx = 0.0d0
+posy = 50.0d0
 
-allocate(qx(1:n), qy(1:n), T(1:n**2), A(1:n**2,1:n**2), b(1:n**2))
+kappa = 0.49!*4.184
 
-Open(Unit = 10, file = 'input.txt')
+allocate(qx(1:n,1:n), qy(1:n,1:n), T(1:n**2), A(1:n**2,1:n**2), b(1:n**2), Temperaturas(1:n+1,1:n+1), Calores(1:n,1:n))
+
+If (n == 4) then
+Open(Unit = 10, file = 'input1.txt')
 read(10,*), (b(k), k = 1, n**2)
  Close(Unit = 10)
 
+Elseif (n == 8) then
+Open(Unit = 11, file = 'input2.txt')
+read(11,*), (b(k), k = 1, n**2)
+ Close(Unit = 11)
+End If
  c = 1
 
 Do j = 1,n
@@ -67,27 +77,86 @@ Do j = 1,n
 	End Do
 End Do
 
-Open(Unit = 11, file = 'ouput.txt')
-
-Do l = 1,n**2
-	write(11,"(16F5.2)") A(l,:)
+If (n == 4) Then
+Open(Unit = 13, file = 'Mat1.txt')
+Do m = 1, n**2
+	write(13,'(99(1x,f4.0))') (A(m,j), j = 1,n**2)
 End Do
 
- Close(Unit = 11)
-
-01	format(1x, 1p3e15.7)
+Elseif(n == 8) Then
+Open(Unit = 13, file = 'Mat2.txt')
+Do m = 1, n**2
+	write(13,'(99(1x,f4.0))') (A(m,j), j = 1,n**2)
+End Do
+ Close(Unit = 13)
+End If
 
 Call Gseid(A, b, n, T, imax, es, lambda)
 
-!Open(Unit = 11, file = 'ouput.txt')
-!Do k = 1,n
-!	Do l = 1,n
-!		write(11,01) T(k*l)
-!	End Do
-!End Do
- !Close(Unit = 11)
+Do i = 2,n+1
+	Temperaturas(i,:) = T((i-2)*n+1:(i-1)*n)
+End Do
+Temperaturas(1,:) = 100
+Temperaturas(:,n+1) = 50
+Temperaturas(1,n+1) = 150
 
-write(*,01) T(57:64)
+qx(:,2:n) = -kappa*(Temperaturas(2:n+1,3:n+1) - Temperaturas(2:n+1,1:n))/(2*delta)
+qy(1:n,:) = -kappa*(Temperaturas(1:n,1:n) - Temperaturas(3:n+1,1:n))/(2*delta)
+qx(:,1) = 0
+qy(n,:) = 0
+
+If (n == 4) then
+Open(Unit = 12, file = 'ouput1.txt')
+Do l = 1,n+1
+	write(12,"(15F10.5)") Temperaturas(l,:)
+End Do
+ Close(Unit = 12)
+
+Elseif(n == 8) then
+Open(Unit = 12, file = 'ouput2.txt')
+Do l = 1,n+1
+	write(12,"(15F10.5)") Temperaturas(l,:)
+End Do
+ Close(Unit = 12)
+End If
+
+01	format(1x, 1p16e15.7)
+
+!Call Gseid(A, b, n, T, imax, es, lambda)
+
+!Do i = 2,n+1
+	!Temperaturas(i,:) = T((i-2)*n+1:(i-1)*n)
+!End Do
+!Temperaturas(1,:) = 100
+!Temperaturas(:,n+1) = 50
+!Temperaturas(1,n+1) = 150
+
+
+!qx(:,2:n) = -kappa*(Temperaturas(2:n+1,3:n+1) - Temperaturas(2:n+1,1:n))/(2*delta)
+!qy(1:n,:) = -kappa*(Temperaturas(1:n,1:n) - Temperaturas(3:n+1,1:n))/(2*delta)
+!qx(:,1) = 0
+!qy(n,:) = 0
+
+!Do i = 1, n+1
+		!write(*,01) Temperaturas(i,:)
+!End Do
+
+!write(*,*) Temperaturas(5,1)
+
+Open(Unit = 14, file = 'Calor.txt')
+write(14,*) 'Componentes en x del flujo de calor'
+Do k = 1,n
+	write(14,01) qx(k,:)
+End Do
+write(14,*) 'Componentes en y del flujo de calor'
+Do l = 1,n
+	write(14,01) qy(l,:)
+End Do
+write(14,*) 'Magnitud del flujo de calor'
+Do m = 1,n
+	write(14,01) Sqrt(qx(m,:)**2 + qy(m,:)**2)
+End Do
+ Close(Unit = 14)
 
 deallocate(qx, qy, T, A, b)
 
@@ -102,7 +171,7 @@ subroutine Gseid(a, b, n, x, imax, es, lambda)
 	integer :: ii, jj, n, iter, centinela, imax
 	double precision :: a(n**2, n**2), b(n**2), x(n**2), dummy, suma, es, ea, lambda, old
 
-	es = 0.0001
+	es = 1.0d-10
 	lambda = 0.01
 	imax = 1000000
 
@@ -146,7 +215,7 @@ subroutine Gseid(a, b, n, x, imax, es, lambda)
 		End Do
 		iter = iter + 1
 	End Do
-	write(*,*) iter
+!	write(*,*) iter
 End Subroutine
 
 

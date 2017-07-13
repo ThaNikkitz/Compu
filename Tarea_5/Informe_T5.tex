@@ -14,6 +14,8 @@
 \usepackage{newfloat}
 \DeclareFloatingEnvironment[name={Gráfico}]{graph}
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\setcounter{MaxMatrixCols}{20}
+
 
 \title{Título}
 
@@ -75,11 +77,11 @@ Esta ecuación es la que se utilizará para aproximar las soluciones del sistema
 T_{i+1,j} + T_{i-1,j} - 4T_{i,j} + T_{i,j+1} + T_{i,j-1} = 0
 \end{equation}
 
-%\begin{figure}
-%\centering
-%\includegraphics[scale=•]{•}
-%\caption{Discretización de la placa mediante el método de diferencias finitas de segundo orden.}
-%\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{Esquema.jpg}
+\caption{Discretización de la placa mediante el método de diferencias finitas de segundo orden.}
+\end{figure}
 
 \section{Establecimiento de las ecuaciones para los distintos tipos de nodo}
 En esta placa se tienen distintos tipos de condiciones, por lo que se tienen distintas ecuaciones para los diferentes tipos de nodo. En esta sección se establecerán dichas ecuaciones según dónde se ubican los nodos a tratar.
@@ -148,5 +150,96 @@ Esta esquina tiene dos condiciones de Dirichlet asociadas, que son las temperatu
 \subsection{Nodos interiores}
 Estos nodos, que no están en el borde sino que en el centro, tienen otro nodo como vecino en ambas direcciones en ambos ejes. La Ecuación 3 se mantiene para este tipo de nodos, sin cambio.\\\\
 El siguiente paso es establecer la matriz de factores y el vector de resultados, y programar o aplicar el método de resolución del sistema.
+
+\subsection{Matriz de cofactores}
+La matriz de cofactores A del sistema en el caso de paso $\Delta = 12.5 [cm]$ es la siguiente
+
+\begin{equation*}
+\begin{pmatrix}
+-4. &  2. &  0. &  0. &  1. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. \\
+ 1. & -4. &  1. &  0. &  0. &  1. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. \\
+ 0. &  1. & -4. &  1. &  0. &  0. &  1. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. \\
+ 0. &  0. &  1. & -4. &  0. &  0. &  0. &  1. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. \\
+ 1. &  0. &  0. &  0. & -4. &  2. &  0. &  0. &  1. &  0. &  0. &  0. &  0. &  0. &  0. &  0. \\
+ 0. &  1. &  0. &  0. &  1. & -4. &  1. &  0. &  0. &  1. &  0. &  0. &  0. &  0. &  0. &  0. \\
+ 0. &  0. &  1. &  0. &  0. &  1. & -4. &  1. &  0. &  0. &  1. &  0. &  0. &  0. &  0. &  0. \\
+ 0. &  0. &  0. &  1. &  0. &  0. &  1. & -4. &  0. &  0. &  0. &  1. &  0. &  0. &  0. &  0. \\
+ 0. &  0. &  0. &  0. &  1. &  0. &  0. &  0. & -4. &  2. &  0. &  0. &  1. &  0. &  0. &  0. \\
+ 0. &  0. &  0. &  0. &  0. &  1. &  0. &  0. &  1. & -4. &  1. &  0. &  0. &  1. &  0. &  0. \\
+ 0. &  0. &  0. &  0. &  0. &  0. &  1. &  0. &  0. &  1. & -4. &  1. &  0. &  0. &  1. &  0. \\
+ 0. &  0. &  0. &  0. &  0. &  0. &  0. &  1. &  0. &  0. &  1. & -4. &  0. &  0. &  0. &  1. \\
+ 0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  2. &  0. &  0. &  0. & -4. &  2. &  0. &  0. \\
+ 0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  2. &  0. &  0. &  1. & -4. &  1. &  0. \\
+ 0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  2. &  0. &  0. &  1. & -4. &  1. \\
+ 0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  0. &  2. &  0. &  0. &  1. & -4.
+\end{pmatrix}
+\end{equation*}
+Además, los vectores de incógnitas y solución tienen el orden que se muestra:\\
+\begin{gather*}
+\text{Vector incógnitas} \qquad \qquad \qquad \qquad \text{Vector solución:}\\
+\begin{pmatrix}
+T_{1,1}\\
+T_{2,1}\\
+T_{3,1}\\
+T_{4,1}\\
+T_{1,2}\\
+T_{2,2}\\
+T_{3,2}\\
+T_{4,2}\\
+T_{1,3}\\
+T_{2,3}\\
+T_{3,3}\\
+T_{4,3}\\
+T_{1,4}\\
+T_{2,4}\\
+T_{3,4}\\
+T_{4,4}\\
+\end{pmatrix} \qquad \qquad \qquad \qquad \qquad \qquad
+\begin{pmatrix}
+-100\\
+-100\\
+-100\\
+-150\\
+0\\
+0\\
+0\\
+-50\\
+0\\
+0\\
+0\\
+-50\\
+0\\
+0\\
+0\\
+-50\\
+\end{pmatrix}
+\end{gather*}
+
+\section{Resultados, análisis y conclusiones}
+Con este esquema y con el programa en \texttt{Fortran 90} que se adjunta, así como con el método de Gauss-Seidel utilizado en la tarea 2, el sistema tiene la resolución numérica mostrada en los archivos de la siguiente forma:
+\begin{itemize}
+\item{Temperaturas: Para el caso de n = 4 nodos a resolver, el archivo con las temperaturas es \texttt{output1.txt}. Para n = 8 nodos, el archivo con las temperaturas es \texttt{output2.txt}}
+\item{Matriz de Cofactores: Para el caso de n = 4 nodos a resolver, el archivo con los cofactores es \texttt{Mat1.txt}. Para n = 8 nodos, el archivo con la matriz de cofactores es \texttt{Mat2.txt}}
+\item{Calores: En este caso el programa devuelve un solo archivo, llamado \texttt{Calor.txt}, en el que se encuentran la componente x del flujo de calor, su componente y, y el módulo. Los valores se encuentran ordenados según la distribución física del problema: El primer elemento de arriba a la izquierda corresponde a la esquina superior izquierda de la placa, por ejemplo.}
+\end{itemize}
+
+Los gráficos de Temperaturas y Calores se presentan a continuación:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{4x4.png}
+\includegraphics[scale=0.3]{8x8.png}
+\caption{Distribución de temperaturas con un sistema 4x4 arriba, y 8x8 abajo.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{125unit.png}
+\includegraphics[scale=0.35]{625unit.png}
+\caption{Flujos de calor para un sistema 4x4 a la izquierda, y 8x8 a la derecha.}
+\end{figure}
+
+Se puede apreciar aquí que los calores fluyen del borde superior de la placa hacia abajo y hacia la izquierda. Esto tiene total sentido físico, pues el lado más frío es el de la derecha, que por termodinámica es el sumidero térmico. Las curvas de temperatura también revelan que como el calor no puede escapar ni por abajo ni por la izquierda, la esquina inferior izquierda recibe calor de arriba y evacúa hacia la derecha.\\\\
+El esquema de diferencias finitas es muy útil para aproximar problemas de este estilo, pues sirve muy bien para modelar ecuaciones o sistemas de ecuaciones en derivadas, ya sea parciales u ordinarias. En este caso se resolvió con el método de Gauss-Seidel, que con un error entre iteraciones de $10^{-10}$ nos da una precisión más que suficiente.\\ La transferencia de calor es un ejemplo de esto, pues sin mucha complicación se pudo desarrollar un esquema que generara la matriz de cofactores y que entregara una matriz con las temperaturas en los nodos trabajados. En resumen, diferencias finitas de segundo orden es un método de fácil implementación y con un error de $O(h^2)$, por lo que además tiene una buena precisión y no muy demandante computacionalmente.
 
 \end{document}
