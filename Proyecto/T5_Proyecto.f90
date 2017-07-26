@@ -114,6 +114,8 @@ Do l = 1,m
 End Do
  Close(Unit = 12)
 
+call system ('aplay /home/thanikkitz/Tareas/BANANA.wav')
+
 !Acá borré mucho, ojo :P
 
 deallocate(qx, qy, T, A, b, Calores, Temperaturas)
