@@ -1,108 +1,115 @@
 program Dif_Finitas
 implicit none
 
-integer :: i, j, n, c, l, m, imax
+integer :: i, j, n, c, l, m, imax, k
 double precision :: delta, es, lambda, kappa, ro, Cp, alpha, q
 double precision, allocatable :: qx(:,:), qy(:,:), T(:), A(:,:), b(:), Temperaturas(:,:), Calores(:,:)
 
 write(*,*) 'Ingrese el número de nodos en "x" y en "y" como nx,ny. Debe ser par'
-read(*,*) nx, ny
+read(*,*) n, m
 
-delta = 2.0d0/ny
-k = 100.0d0
+delta = 2.0d0/n
+kappa = 100.0d0
 ro = 8862.0d0
  Cp = 421.0d0
-alpha = k/(ro*Cp)
+alpha = kappa/(ro*Cp)
 q = 1.0d5
 
 allocate(qx(1:n,1:m), qy(1:n,1:m), T(1:n*m), A(1:n*m,1:n*m), b(1:n*m), Temperaturas(1:n+2,1:m+2), Calores(1:n,1:m))
 
 Do i = 1,m
 	Do j = 1,n
-		If ((i == 1 .and. j <= n/2) .or. i == m .and. j <= n/2) Then
-			b((j-1)*m+i) = -2.0d0*delta*q/k
+		If (i == 1 .and. j <= n/2) Then
+			b((j-1)*m+i) = -2.0d0*delta*q/kappa
+			write(*,*) j, i
+		Elseif (i == m .and. j <= n/2) Then
+			b((j-1)*m+i) = -2.0d0*delta*q/kappa
+			write(*,*) j, i
 		Else
-			b((j-1)*m+1) = 0.0d0
+			b((j-1)*m+i) = 0.0d0
 		End If
 	End Do
 End Do
 
  c = 1
-
+! Se resuelve para un vector (T_1,1 ; T_1,2 ; T_1,3 ... T_n,m-1 ; T_n,m)
 Do j = 1,n
 	Do i = 1,m
 		If(i == 1 .and. j == 1) then		!nodo superior izquierdo
 			A(c,c) = -4
 			A(c,c+1) = 2
-			A(c,c+n) = 1
-		Elseif(i == n .and. j == 1) then	!nodo superior derecho
+			A(c,c+m) = 1
+		Elseif(i == 1 .and. j == n) then	!nodo superior derecho
 			A(c,c) = -4
-			A(c,c-1) = 1
-			A(c,c+n) = 1
-		Elseif(i == n .and. j == n) then	!nodo inferior derecho
-			A(c,c) = -4
-			A(c,c-1) = 1
-			A(c,c-n) = 2
-		Elseif(i == 1 .and. j == n) then	!nodo inferior izquierdo
-			A(c,c) = -4
-			A(c,c-n) = 2
 			A(c,c+1) = 2
-		Elseif(j == 1) then			!nodos borde superior
+			A(c,c-m) = 1
+		Elseif(i == m .and. j == n) then	!nodo inferior derecho
 			A(c,c) = -4
-			A(c,c+n) = 1
-			A(c,c+1) = 1
-			A(c,c-1) = 1		
-		Elseif(i == 1) then			!nodos borde izquierdo
+			A(c,c-1) = 2
+			A(c,c-m) = 1
+		Elseif(i == m .and. j == 1) then	!nodo inferior izquierdo
 			A(c,c) = -4
-			A(c,c+n) = 1
-			A(c,c+1) = 2
-			A(c,c-n) = 1
-		Elseif(i == n) then			!nodos borde derecho
+			A(c,c+m) = 1
+			A(c,c-1) = 2
+		Elseif(i == 1) then			!nodos borde superior
 			A(c,c) = -4
-			A(c,c-1) = 1
-			A(c,c+n) = 1
-			A(c,c-n) = 1
-		Elseif(j == n) then			!nodos borde inferior
+			A(c,c+m) = 1
+			A(c,c-m) = 1
+			A(c,c+1) = 2		
+		Elseif(j == 1) then			!nodos borde izquierdo
 			A(c,c) = -4
 			A(c,c+1) = 1
+			A(c,c+m) = 1
 			A(c,c-1) = 1
-			A(c,c-n) = 2
+		Elseif(j == n) then			!nodos borde derecho
+			A(c,c) = -4
+			A(c,c-m) = 1
+			A(c,c+1) = 1
+			A(c,c-1) = 1
+		Elseif(i == m) then			!nodos borde inferior
+			A(c,c) = -4
+			A(c,c+m) = 1
+			A(c,c-1) = 2
+			A(c,c-m) = 1
 		Else					!nodos centrales
 			A(c,c) = -4
 			A(c,c+1) = 1
 			A(c,c-1) = 1
-			A(c,c+n) = 1
-			A(c,c-n) = 1
+			A(c,c+m) = 1
+			A(c,c-m) = 1
 		End If
 		c = c + 1
 	End Do
 End Do
 
-Open(Unit = 13, file = 'Mat1.txt')
-Do m = 1, n**2
-	write(13,'(99(1x,f4.0))') (A(m,j), j = 1,n**2)
+Open(Unit = 13, file = 'A.txt')
+Do i = 1, n*m
+	write(13,'(99(1x,f4.0))') (A(i,j), j = 1,n*m)
 End Do
+write(13,*)
+write(13,*) b
+ Close(Unit = 13)
 
-Call Gseid(A, b, n, T, imax, es, lambda)
+!Call Gseid(A, b, n, T, imax, es, lambda)
 
-Do i = 2,n+1
-	Temperaturas(i,:) = T((i-2)*n+1:(i-1)*n)
-End Do
+!Do i = 2,n+1
+!	Temperaturas(i,:) = T((i-2)*n+1:(i-1)*n)
+!End Do
 
-Temperaturas(1,:) = 0
-Temperaturas(n,:) = 0
+!Temperaturas(1,:) = 0
+!Temperaturas(n,:) = 0
 
-qx(:,2:n) = -kappa*(Temperaturas(2:n+1,3:n+1) - Temperaturas(2:n+1,1:n))/(2*delta)
-qy(1:n,:) = -kappa*(Temperaturas(1:n,1:n) - Temperaturas(3:n+1,1:n))/(2*delta)
-qy(:,1) = 0
-qy(n,:) = 0
+!qx(:,2:n) = -kappa*(Temperaturas(2:n+1,3:n+1) - Temperaturas(2:n+1,1:n))/(2*delta)
+!qy(1:n,:) = -kappa*(Temperaturas(1:n,1:n) - Temperaturas(3:n+1,1:n))/(2*delta)
+!qy(:,1) = 0
+!qy(n,:) = 0
 
 
-Open(Unit = 12, file = 'ouput1.txt')
-Do l = 1,n+1
-	write(12,"(15F10.5)") Temperaturas(l,:)
-End Do
- Close(Unit = 12)
+!Open(Unit = 12, file = 'ouput1.txt')
+!Do l = 1,n+1
+!	write(12,"(15F10.5)") Temperaturas(l,:)
+!End Do
+! Close(Unit = 12)
 
 
 01	format(1x, 1p16e15.7)
@@ -128,22 +135,22 @@ End Do
 
 !write(*,*) Temperaturas(5,1)
 
-Open(Unit = 14, file = 'Calor.txt')
-write(14,*) 'Componentes en x del flujo de calor'
-Do k = 1,n
-	write(14,01) qx(k,:)
-End Do
-write(14,*) 'Componentes en y del flujo de calor'
-Do l = 1,n
-	write(14,01) qy(l,:)
-End Do
-write(14,*) 'Magnitud del flujo de calor'
-Do m = 1,n
-	write(14,01) Sqrt(qx(m,:)**2 + qy(m,:)**2)
-End Do
+!Open(Unit = 14, file = 'Calor.txt')
+!write(14,*) 'Componentes en x del flujo de calor'
+!Do k = 1,n
+!	write(14,01) qx(k,:)
+!End Do
+!write(14,*) 'Componentes en y del flujo de calor'
+!Do l = 1,n
+!	write(14,01) qy(l,:)
+!End Do
+!write(14,*) 'Magnitud del flujo de calor'
+!Do m = 1,n
+!	write(14,01) Sqrt(qx(m,:)**2 + qy(m,:)**2)
+!End Do
  Close(Unit = 14)
 
-deallocate(qx, qy, T, A, b, Calores, Temepraturas)
+deallocate(qx, qy, T, A, b, Calores, Temperaturas)
 
 end program
 
