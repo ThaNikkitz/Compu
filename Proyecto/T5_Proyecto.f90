@@ -1,29 +1,36 @@
 program Dif_Finitas
 implicit none
 
-integer :: i, j, n, c, k, l, m, imax
-double precision :: delta, es, lambda, kappa, posx, posy
+integer :: i, j, n, c, l, m, imax
+double precision :: delta, es, lambda, kappa, ro, Cp, alpha, q
 double precision, allocatable :: qx(:,:), qy(:,:), T(:), A(:,:), b(:), Temperaturas(:,:), Calores(:,:)
 
-write(*,*) 'Ingrese el tamaño del paso'
-read(*,*) delta
+write(*,*) 'Ingrese el número de nodos en "x" y en "y" como nx,ny. Debe ser par'
+read(*,*) nx, ny
 
-n = 50/delta
-posx = 0.0d0
-posy = 50.0d0
+delta = 2.0d0/ny
+k = 100.0d0
+ro = 8862.0d0
+ Cp = 421.0d0
+alpha = k/(ro*Cp)
+q = 1.0d5
 
-kappa = 0.49!*4.184
+allocate(qx(1:n,1:m), qy(1:n,1:m), T(1:n*m), A(1:n*m,1:n*m), b(1:n*m), Temperaturas(1:n+2,1:m+2), Calores(1:n,1:m))
 
-allocate(qx(1:n,1:n), qy(1:n,1:n), T(1:n**2), A(1:n**2,1:n**2), b(1:n**2), Temperaturas(1:n+1,1:n+1), Calores(1:n,1:n))
-
-Open(Unit = 10, file = 'input1.txt')
-read(10,*), (b(k), k = 1, n**2)
- Close(Unit = 10)
+Do i = 1,m
+	Do j = 1,n
+		If ((i == 1 .and. j <= n/2) .or. i == m .and. j <= n/2) Then
+			b((j-1)*m+i) = -2.0d0*delta*q/k
+		Else
+			b((j-1)*m+1) = 0.0d0
+		End If
+	End Do
+End Do
 
  c = 1
 
 Do j = 1,n
-	Do i = 1,n
+	Do i = 1,m
 		If(i == 1 .and. j == 1) then		!nodo superior izquierdo
 			A(c,c) = -4
 			A(c,c+1) = 2
