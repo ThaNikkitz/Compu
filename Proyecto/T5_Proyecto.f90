@@ -114,7 +114,7 @@ Do l = 1,m
 End Do
  Close(Unit = 12)
 
-call system ('aplay /home/thanikkitz/Tareas/BANANA.wav')
+call system ('aplay ./BANANA.wav')
 
 !Acá borré mucho, ojo :P
 
