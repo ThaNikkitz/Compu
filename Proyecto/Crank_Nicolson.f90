@@ -38,80 +38,80 @@ End Do
 Do j = 1,n
 	Do i = 1,m
 		If(i == 1 .and. j == 1) then		!nodo superior izquierdo
-			A(c,c) = -(1+4*mu)
-			AA(c,c) = -(1-4*mu)
-			A(c,c+1) = 2*mu
-			AA(c,c+1) = -2*mu
-			A(c,c+m) = mu
-			AA(c,c+m) = -mu
+			A(c,c) = (1+4*mu)
+			AA(c,c) = (1-4*mu)
+			A(c,c+1) = -2*mu
+			AA(c,c+1) = 2*mu
+			A(c,c+m) = -mu
+			AA(c,c+m) = mu
 		Elseif(i == 1 .and. j == n) then	!nodo superior derecho
-			A(c,c) = -(1+4*mu)
-			AA(c,c) = -(1-4*mu)
-			A(c,c+1) = 2*mu
-			AA(c,c+1) = -2*mu
-			A(c,c-m) = mu
-			AA(c,c-m) = -mu
+			A(c,c) = (1+4*mu)
+			AA(c,c) = (1-4*mu)
+			A(c,c+1) = -2*mu
+			AA(c,c+1) = 2*mu
+			A(c,c-m) = -mu
+			AA(c,c-m) = mu
 		Elseif(i == m .and. j == n) then	!nodo inferior derecho
-			A(c,c) = -(1+4*mu)
-			AA(c,c) = -(1-4*mu)
-			A(c,c-1) = 2*mu
-			AA(c,c-1) = -2*mu
-			A(c,c-m) = mu
-			AA(c,c-m) = -mu
+			A(c,c) = (1+4*mu)
+			AA(c,c) = (1-4*mu)
+			A(c,c-1) = -2*mu
+			AA(c,c-1) = 2*mu
+			A(c,c-m) = -mu
+			AA(c,c-m) = mu
 		Elseif(i == m .and. j == 1) then	!nodo inferior izquierdo
-			A(c,c) = -(1+4*mu)
-			AA(c,c) = -(1-4*mu)
-			A(c,c+m) = mu
-			AA(c,c+m) = -mu
-			A(c,c-1) = 2*mu
-			AA(c,c-1) = -2*mu
+			A(c,c) = (1+4*mu)
+			AA(c,c) = (1-4*mu)
+			A(c,c+m) = -mu
+			AA(c,c+m) = mu
+			A(c,c-1) = -2*mu
+			AA(c,c-1) = 2*mu
 		Elseif(i == 1) then			!nodos borde superior
-			A(c,c) = -(1+4*mu)
-			AA(c,c) = -(1-4*mu)
-			A(c,c+m) = mu
-			AA(c,c+m) = -mu
-			A(c,c-m) = mu
-			AA(c,c-m) = -mu
-			A(c,c+1) = 2*mu
-			AA(c,c+1) = -2*mu
+			A(c,c) = (1+4*mu)
+			AA(c,c) = (1-4*mu)
+			A(c,c+m) = -mu
+			AA(c,c+m) = mu
+			A(c,c-m) = -mu
+			AA(c,c-m) = mu
+			A(c,c+1) = -2*mu
+			AA(c,c+1) = 2*mu
 		Elseif(j == 1) then			!nodos borde izquierdo
-			A(c,c) = -(1+4*mu)
-			AA(c,c) = -(1-4*mu)
-			A(c,c+1) = mu
-			AA(c,c+1) = -mu
-			A(c,c+m) = mu
-			AA(c,c+m) = -mu
-			A(c,c-1) = mu
-			AA(c,c-1) = -mu
+			A(c,c) = (1+4*mu)
+			AA(c,c) = (1-4*mu)
+			A(c,c+1) = -mu
+			AA(c,c+1) = mu
+			A(c,c+m) = -mu
+			AA(c,c+m) = mu
+			A(c,c-1) = -mu
+			AA(c,c-1) = mu
 		Elseif(j == n) then			!nodos borde derecho
-			A(c,c) = -(1+4*mu)
-			AA(c,c) = -(1-4*mu)
-			A(c,c-m) = mu
-			AA(c,c-m) = -mu
-			A(c,c+1) = mu
-			AA(c,c+1) = -mu
-			A(c,c-1) = mu
-			AA(c,c-1) = -mu
+			A(c,c) = (1+4*mu)
+			AA(c,c) = (1-4*mu)
+			A(c,c-m) = -mu
+			AA(c,c-m) = mu
+			A(c,c+1) = -mu
+			AA(c,c+1) = mu
+			A(c,c-1) = -mu
+			AA(c,c-1) = mu
 		Elseif(i == m) then			!nodos borde inferior
-			A(c,c) = -(1+4*mu)
-			AA(c,c) = -(1-4*mu)
-			A(c,c+m) = mu
-			AA(c,c+m) = -mu
-			A(c,c-1) = 2*mu
-			AA(c,c-1) = -2*mu
-			A(c,c-m) = mu
-			AA(c,c-m) = -mu
+			A(c,c) = (1+4*mu)
+			AA(c,c) = (1-4*mu)
+			A(c,c+m) = -mu
+			AA(c,c+m) = mu
+			A(c,c-1) = -2*mu
+			AA(c,c-1) = 2*mu
+			A(c,c-m) = -mu
+			AA(c,c-m) = mu
 		Else					!nodos centrales
-			A(c,c) = -(1+4*mu)
-			AA(c,c) = -(1-4*mu)
-			A(c,c+1) = mu
-			AA(c,c+1) = -mu
-			A(c,c-1) = mu
-			AA(c,c-1) = -mu
-			A(c,c+m) = mu
-			AA(c,c+m) = -mu
-			A(c,c-m) = mu
-			AA(c,c-m) = -mu
+			A(c,c) = (1+4*mu)
+			AA(c,c) = (1-4*mu)
+			A(c,c+1) = -mu
+			AA(c,c+1) = mu
+			A(c,c-1) = -mu
+			AA(c,c-1) = mu
+			A(c,c+m) = -mu
+			AA(c,c+m) = mu
+			A(c,c-m) = -mu
+			AA(c,c-m) = mu
 		End If
 		c = c + 1
 	End Do
@@ -132,9 +132,10 @@ End Do
  Close(Unit = 15)
 
 Tk(:) = 0.0d0
+
 Do k = 1, t_obj
-	RHS = matmul(AA,Tk) - b
-	Call Gseid(A, RHS, n, m, T, imax, es, lambda)
+	RHS = -matmul(AA,Tk) + b
+	Call Gseid(A, RHS, n, m, T, imax, lambda)
 	Tk = T
 End Do
 
@@ -158,7 +159,7 @@ Do l = 1,m
 End Do
  Close(Unit = 12)
 
-!call system ('aplay ./BANANA.wav')
+call system ('aplay ./BANANA.wav')
 
 !Acá borré mucho, ojo :P
 
@@ -168,16 +169,16 @@ end program
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-subroutine Gseid(a, b, n, m, x, imax, es, lambda)
+subroutine Gseid(a, b, n, m, x, imax, lambda)
 
 	implicit none
 
 	integer :: ii, jj, n, m, iter, centinela, imax
 	double precision :: a(n*m, n*m), b(n*m), x(n*m), dummy, suma, es, ea, lambda, old
 
-	es = 1.0d-6
-	lambda = 1
-	imax = 10000
+	es = 1.0d-5
+	lambda = 8.0d-1
+	imax = 15000
 
 	Do ii = 1,n*m
 		dummy = a(ii,ii)
@@ -218,16 +219,16 @@ subroutine Gseid(a, b, n, m, x, imax, es, lambda)
 			End If
 		End Do
 		iter = iter + 1
-		If (Mod(iter,1500) == 0) Then
-			write(*,*) 'Iteracion número: ', iter
-		End If
-		If (Mod(iter,300000) == 1) Then
-			write(*,*) 'Anda a tomarte un tecito, le falta harto'
-			write(*,*) 'Para que te hagas una idea, el error va en: ', ea
-		End If
-		If (Mod(iter,400000) == 1) Then
-			write(*,*) 'Y tu pc ya empieza a oler a quemado...'
-		End If
+!		If (Mod(iter,1500) == 0) Then
+!			write(*,*) 'Iteracion número: ', iter
+!		End If
+!		If (Mod(iter,300000) == 1) Then
+!			write(*,*) 'Anda a tomarte un tecito, le falta harto'
+!			write(*,*) 'Para que te hagas una idea, el error va en: ', ea
+!		End If
+!		If (Mod(iter,400000) == 1) Then
+!			write(*,*) 'Y tu pc ya empieza a oler a quemado...'
+!		End If
 	End Do
 End Subroutine
 
