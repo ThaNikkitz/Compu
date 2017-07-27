@@ -3,7 +3,7 @@ implicit none
 
 integer :: i, j, n, c, l, m, imax, k
 double precision :: delta, es, lambda, kappa, ro, Cp, alpha, q
-double precision, allocatable :: qx(:,:), qy(:,:), T(:), A(:,:), b(:), Temperaturas(:,:), Calores(:,:)
+double precision, allocatable :: T(:), A(:,:), b(:), Temperaturas(:,:)
 
 write(*,*) 'Ingrese el número de nodos en "x" y en "y" como nx,ny. Debe ser par'
 read(*,*) n, m
@@ -15,7 +15,7 @@ ro = 8862.0d0
 alpha = kappa/(ro*Cp)
 q = 1.0d5
 
-allocate(qx(1:n,1:m), qy(1:n,1:m), T(1:n*m), A(1:n*m,1:n*m), b(1:n*m), Temperaturas(1:m,1:n+2), Calores(1:n,1:m))
+allocate(T(1:n*m), A(1:n*m,1:n*m), b(1:n*m), Temperaturas(1:m,1:n+2))
 
 Do i = 1,m
 	Do j = 1,n
@@ -118,7 +118,7 @@ call system ('aplay ./BANANA.wav')
 
 !Acá borré mucho, ojo :P
 
-deallocate(qx, qy, T, A, b, Calores, Temperaturas)
+deallocate(T, A, b, Temperaturas)
 
 end program
 
@@ -131,9 +131,9 @@ subroutine Gseid(a, b, n, m, x, imax, es, lambda)
 	integer :: ii, jj, n, m, iter, centinela, imax
 	double precision :: a(n*m, n*m), b(n*m), x(n*m), dummy, suma, es, ea, lambda, old
 
-	es = 1.0d-10
-	lambda = 0.01
-	imax = 1000000
+	es = 1.0d-6
+	lambda = 1
+	imax = 10000
 
 	Do ii = 1,n*m
 		dummy = a(ii,ii)
